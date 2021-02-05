@@ -6,3 +6,8 @@
 
 //pfc
 #define DEFAULT_BIAS 0
+
+///FMAAAN/
+
+#define FMAN_LOGS_PATH LOGS_PATH
+#define FMAN_FAILURE_LOGS "failures.log"
