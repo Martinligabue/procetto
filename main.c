@@ -1,6 +1,9 @@
-#include <iostream>
-using namespace std;
 
-int main (boh){
-yolo
+#include <stdlib.h>
+
+int main(int argc, char *argv[]){
+    char* g18Path = extractG18FromArgument(argc, argv);
+    int processCount = 0;
+
+    
 }
