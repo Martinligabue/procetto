@@ -1,0 +1,2 @@
+/usr/bin/ar qc libprocetto.a  CMakeFiles/procetto.dir/procetto.cpp.o
+/usr/bin/ranlib libprocetto.a
