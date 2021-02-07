@@ -12,21 +12,28 @@ void wes(int *pidPFCs)
   char *result1[100];
   char *result2[100];
   char *result3[100];
-  if (fd open(log / speedPFC1.log != -1))
+  if (fd open(log/speedPFC1.log != -1))
   {
     perrorr("speedPFC1");
   }
   for (int i = 0; i < 100; i++)
   {
-    read(fd)
+    result1[i]=read(fd);
   }
-  if (fd open(log / speedPFC2.log != -1))
+  if (fd open(log/speedPFC2.log != -1))
   {
     perror("speedPFC2");
   }
-  if (fd open(log / speedPFC3.log != -1))
+  for (int i = 0; i < 100; i++)
+  {
+    result2[i]=read(fd);
+  }
+  if (fd open(log/speedPFC3.log != -1))
   {
     perror("speedPFC3");
   }
+  for (int i = 0; i < 100; i++)
+  {
+    result3[i]=read(fd);
+  }
 }
-//
