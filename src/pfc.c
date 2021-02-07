@@ -64,8 +64,6 @@ struct gll pfc(char *path, struct gll oldGll, int flag)
     }
     newGll.time = atoi(buf2);
 
-    printf("Time: %ld\n", newGll.time);
-
     for (int i = 0; i < 10; i++)
     {
         buf2[i] = '\0';
@@ -91,14 +89,13 @@ struct gll pfc(char *path, struct gll oldGll, int flag)
         speed = 0;
     }
 
-    //printf("Figlio : %d speed: %f lat: %f %f\n", flag, speed, newGll.lat, newGll.lon);
-    //comunication(flag, speed);
+    comunication(flag, speed);
     return newGll;
 }
 
 double degreesToRadians(double a)
 {
-    return a * 0.01745329; //aaaaaaaAAAAAA
+    return a * 0.01745329;
 }
 
 double calcolateSpeed(struct gll oldGll, struct gll newGll)
@@ -127,14 +124,14 @@ void comunication(int flag, double speed)
         write(fileD, strSpeed, 8);
         close(fileD);
         break;
-    case 2:
+    /*case 2:
         pipe(fPipe);
         close(fPipe[1]);
         write(fPipe[0], strSpeed, 8);
         close(fPipe[0]);
         break;
     case 3:
-
+*/
     default:
         break;
     }

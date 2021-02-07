@@ -17,9 +17,15 @@ void transducer(){
     int fd;
     char buf[8];
 
-    fd = open("../speed.txt", O_RDONLY);
+    if(fd = open("speed.txt", O_RDONLY) == -1){
+        perror("openTransSpeed");
+    }
     read (fd, buf, 8);
     close(fd);
 
-    fd = open("../data/speedFC1.log", O_WRONLY);
+    if(fd = open("../log/speedFC1.log", O_WRONLY) == -1){
+        perror("openTransLog");
+    }
+    write(fd, buf, 8);
+    close(fd);
 }
