@@ -73,6 +73,7 @@ struct gll pfc(char *path, int offset, struct gll oldGll, int flag)
         speed = 0;
     }
 
+    //printf("Figlio : %d speed: %f\n", flag, speed);
     comunication(flag, speed);
     return newGll;
 }
@@ -98,14 +99,14 @@ double calcolateSpeed(struct gll oldGll, struct gll newGll)
 
 void comunication(int flag, double speed)
 {
-    char strSpeed[100];
+    char strSpeed[10];
     int fileD;
     sprintf(strSpeed, "%f\n", speed);
     switch (flag)
     {
     case 1:
         fileD = open("speed.txt", O_WRONLY);
-        write(fileD, strSpeed, 100);
+        write(fileD, strSpeed, 10);
         close(fileD);
         break;
     default:
