@@ -4,36 +4,46 @@
 #include <stdio.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <math.h>
+#include <fcntl.h>
+#include <errno.h>
 
-void wes(int *pidPFCs)
+
+void wes(void)
 {
   int fd;
-  char *result1[100];
-  char *result2[100];
-  char *result3[100];
-  if (fd open(log/speedPFC1.log, O_RDONLY) != -1)
+  char result1[9];
+  char result2[9];
+  char result3[9];
+
+  if ((fd = open("log/speedPFC1.log", O_RDONLY)) == -1)
   {
-    perrorr("speedPFC1");
+    perror("speedWesPFC1");
+    exit(1);
   }
-  for (int i = 0; i < 100; i++)
+  read(fd, &result1, 8);
+  close(fd);
+
+  if ((fd = open("log/speedPFC2.log", O_RDONLY)) == -1)
   {
-    result1[i]=read(fd);
+    perror("speedWesPFC2");
+    exit(1);
   }
-  if (fd open(log/speedPFC2.log != -1))
+  read(fd, &result2, 8);
+  close(fd);
+
+  if ((fd = open("log/speedPFC3.log", O_RDONLY)) == -1)
   {
-    perror("speedPFC2");
+    perror("speedWesPFC3");
+    exit(1);
   }
-  for (int i = 0; i < 100; i++)
-  {
-    result2[i]=read(fd);
+  read(fd, &result3, 8);
+  close(fd);
+
+
+  if(strcmp(result1, result2) && strcmp(result1, result3)){
+    printf("Wes: OK\n");
   }
-  if (fd open(log/speedPFC3.log != -1))
-  {
-    perror("speedPFC3");
-  }
-  for (int i = 0; i < 100; i++)
-  {
-    result3[i]=read(fd);
+  else{
+    printf("Wes: non ok\n");
   }
 }
