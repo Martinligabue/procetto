@@ -120,7 +120,10 @@ void comunication(int flag, double speed)
     switch (flag)
     {
     case 1:
-        fileD = open("speed.txt", O_WRONLY);
+        if ((fileD = open("data/speed.txt", O_WRONLY)) == -1){
+            perror("pfcSpeed");
+            exit(1);
+        }
         write(fileD, strSpeed, 8);
         close(fileD);
         break;

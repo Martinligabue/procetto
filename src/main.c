@@ -21,13 +21,14 @@ int main(int argc, char *argv[])
     oldGll.lat = 0;
     oldGll.offset = 0;
     int processCounter = 0;
+    
     processCounter++;
-
     pidPfc[0] = fork();
     if (pidPfc[0] == 0)
     {
         while (1)
-        {
+        {   
+            printf("processo: 1\n");
             oldGll = pfc(argv[1], oldGll, 1);
             sleep(CLOCK);
         }
@@ -39,37 +40,35 @@ int main(int argc, char *argv[])
     {
         while (1)
         {
+            printf("processo: 2\n");
             oldGll = pfc(argv[1], oldGll, 2);
             sleep(CLOCK);
         }
     }
+    
     processCounter++;
-
     pidPfc[2] = fork();
     if (pidPfc[2] == 0)
     {
         while (1)
         {
+            printf("processo: 3\n");
             oldGll = pfc(argv[1], oldGll, 3);
             sleep(CLOCK);
         }
     }
 
-    processCounter++;
+   /* processCounter++;
     pidPfc[3] = fork();
     if (pidPfc[3] == 0)
     {
         while (1)
         {
+            printf("processo: 4\n");
             transducer();
             sleep(CLOCK);
         }
-    }
+    }*/
 
-    while (processCounter)
-    {
-        wait(NULL);
-        processCounter -= 1;
-    }
     return 0;
 }

@@ -19,12 +19,14 @@ void transducer(){
 
     if((fd = open("data/speed.txt", O_RDONLY)) == -1){
         perror("openTransSpeed");
+        exit(1);
     }
     read (fd, buf, 8);
     close(fd);
 
     if((fd = open("log/speedPFC1.log", O_WRONLY)) == -1){
         perror("openTransLog");
+        exit(1);
     }
     write(fd, buf, 8);
     close(fd);
