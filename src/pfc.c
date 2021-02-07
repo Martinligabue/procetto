@@ -10,7 +10,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "pfc.h"
-
+#include "transducer.h"
 
 
 struct gll pfc(char *path, struct gll oldGll, int flag)
