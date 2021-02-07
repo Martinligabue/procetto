@@ -100,15 +100,17 @@ double calcolateSpeed(struct gll oldGll, struct gll newGll)
 void comunication(int flag, double speed)
 {
     char strSpeed[10];
-    int fileD;
+    int fileD, fPipe[2];
     sprintf(strSpeed, "%f\n", speed);
     switch (flag)
     {
     case 1:
         fileD = open("speed.txt", O_WRONLY);
-        write(fileD, strSpeed, 10);
+        write(fileD, strSpeed, 8);
         close(fileD);
         break;
+    case 2:
+        
     default:
         break;
     }
