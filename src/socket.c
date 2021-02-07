@@ -20,9 +20,11 @@ char actionOnSocket(char* str, int action){
 
     if(action == 0){
         write(socket[0], &str, 8);
+        close(socket[0]);
     }
     if(action == 1){
         read(socket[1], &buf, 8);
+        close(socket[1]);
     }
     
     return *buf;
