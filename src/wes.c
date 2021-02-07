@@ -47,18 +47,23 @@ void wes(void)
     else
     {
       //errore su 3
+      pfcDs("error", pid3);
     }
   }
   else if (strcmp(result1, result3))
   {
     //erroe su 2
+          pfcDs("error", pid2);
   }
   else if (strcmp(result2, result3))
   {
     //errore su 1
+          pfcDs("error", pid1);
+
   }
   else
   {
     //emergency
+          pfcDs("emergency", 0);
   }
 }
