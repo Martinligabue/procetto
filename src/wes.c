@@ -7,7 +7,6 @@
 #include <fcntl.h>
 #include <errno.h>
 
-
 void wes(void)
 {
   int fd;
@@ -39,11 +38,27 @@ void wes(void)
   read(fd, &result3, 8);
   close(fd);
 
-
-  if(strcmp(result1, result2) && strcmp(result1, result3)){
-    printf("Wes: OK\n");
+  if (strcmp(result1, result2))
+  {
+    if (strcmp(result1, result3))
+    {
+      printf("Wes: OK\n");
+    }
+    else
+    {
+      //errore su 3
+    }
   }
-  else{
-    printf("Wes: non ok\n");
+  else if (strcmp(result1, result3))
+  {
+    //erroe su 2
+  }
+  else if (strcmp(result2, result3))
+  {
+    //errore su 1
+  }
+  else
+  {
+    //emergency
   }
 }
