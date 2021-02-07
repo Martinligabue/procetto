@@ -66,7 +66,7 @@ struct gll pfc(char *path, int offset, struct gll oldGll, int flag)
     if (oldGll.lat != 0)
     {
         speed = calcolateSpeed(oldGll, newGll);
-        speed = speed / (newGll.time - oldGll.time);
+        //speed = speed / (newGll.time - oldGll.time);
     }
     else
     {
