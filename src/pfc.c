@@ -23,7 +23,7 @@ struct gll pfc(char *path, struct gll oldGll, int flag)
     gDesc = open(path, O_RDONLY);
     if (gDesc == -1)
     {
-        perror("open");
+        perror("pfcOpenG18");
         exit(1);
     }
     do{
