@@ -130,8 +130,6 @@ void comunication(int flag, double speed)
     case 2:
         actionOnPipe(strSpeed, 0);
         break;
-    case 3:
-
     default:
         break;
     }

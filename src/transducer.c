@@ -12,6 +12,7 @@
 #include <fcntl.h>
 #include "pfc.h"
 #include "transducer.h"
+#include "pipe.h"
 
 void transducer(){
     int fd;
@@ -25,11 +26,18 @@ void transducer(){
     close(fd);
 
     if((fd = open("log/speedPFC1.log", O_WRONLY)) == -1){
-        perror("openTransLog");
+        perror("openTransLog1");
         exit(1);
     }
     write(fd, buf, 8);
     close(fd);
 
-    
+    if((fd = open("log/speedPFC2.log", O_WRONLY)) == -1){
+        perror("openTransLog2");
+        exit(1);
+    }
+    *buf = actionOnPipe("", 1);
+    write(fd, buf, 8);
+    close(fd);
+
 }
