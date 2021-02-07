@@ -37,7 +37,7 @@ void transducer(){
         exit(1);
     }
     *buf = actionOnPipe("", 1);
-    write(fd, buf, 8);
+    write(fd, buf, 9);
     close(fd);
 
 }

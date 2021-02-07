@@ -12,7 +12,7 @@
 #include "pipe.h"
 
 
-char* actionOnPipe (char *str, int action){
+const char * actionOnPipe (char *str, int action){
     int fD[2];
     char buf[9];
     pipe(fD);

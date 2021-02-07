@@ -12,7 +12,7 @@
 #include <fcntl.h>
 #include "pfc.h"
 #include "transducer.h"
-#define CLOCK 0.1
+#define CLOCK 0.2
 
 int main(int argc, char *argv[])
 {
