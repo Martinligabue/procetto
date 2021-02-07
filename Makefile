@@ -1,69 +1,68 @@
-########################################################################
-####################### Makefile Template ##############################
-########################################################################
+CC=gcc
 
-# Compiler settings - Can be customized.
-CC = gcc
-CXXFLAGS = -std=c11 -Wall
-LDFLAGS = 
+NAME_EXE=run
+PREFIX_GLOBAL=src/
+PREFIX_PFC=$(PREFIX_GLOBAL)/
+PREFIX_TRANS=$(PREFIX_GLOBAL)/
+PREFIX_FMAN=$(PREFIX_GLOBAL)/
+PREFIX_WES=$(PREFIX_GLOBAL)/
+PREFIX_PFCDS=$(PREFIX_GLOBAL)/
+PREFIX_UTIL=$(PREFIX_GLOBAL)/
+BINDIR=bin/
+LOGDIR=log/
+TMPDIR=tmp/
 
-# Makefile settings - Can be customized.
-APPNAME = run
-EXT = .c
-SRCDIR = ./src
-OBJDIR = ./obj
+run: all
+	@ echo "Run"
+	@ ./$(NAME_EXE)
 
-############## Do not change anything from here downwards! #############
-SRC = $(wildcard $(SRCDIR)/*$(EXT))
-OBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)/%.o)
-DEP = $(OBJ:$(OBJDIR)/%.o=%.d)
-# UNIX-based OS variables & settings
-RM = rm
-DELOBJ = $(OBJ)
-# Windows OS variables & settings
-DEL = del
-EXE = .exe
-WDELOBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)\\%.o)
+all: clean install 
 
-########################################################################
-####################### Targets beginning here #########################
-########################################################################
-
-all: $(APPNAME)
-
-# Builds the app
-$(APPNAME): $(OBJ)
-	$(CC) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
-
-# Creates the dependecy rules
-%.d: $(SRCDIR)/%$(EXT)
-	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=$(OBJDIR)/%.o) >$@
-
-# Includes all .h files
--include $(DEP)
-
-# Building rule for .o files and its .c/.cpp in combination with all .h
-$(OBJDIR)/%.o: $(SRCDIR)/%$(EXT)
-	$(CC) $(CXXFLAGS) -o $@ -c $<
-
-################### Cleaning rules for Unix-based OS ###################
-# Cleans complete project
-.PHONY: clean
 clean:
-	$(RM) $(DELOBJ) $(DEP) $(APPNAME)
+	@ echo "Clean temporary files and directories"
+	@ rm -rf $(BINDIR) $(LOGDIR) $(TMPDIR)
 
-# Cleans only all files with the extension .d
-.PHONY: cleandep
-cleandep:
-	$(RM) $(DEP)
+install: precompile main
+	@ echo "Package binaries on run"
+	@ $(CC) $(BINDIR)*.o -o $(NAME_EXE) -lm
 
-#################### Cleaning rules for Windows OS #####################
-# Cleans complete project
-.PHONY: cleanw
-cleanw:
-	$(DEL) $(WDELOBJ) $(DEP) $(APPNAME)$(EXE)
+main: pfc transducer fman wes pfcds config
+	@ echo "Compile main"
+	@ $(CC) -c $(PREFIX_GLOBAL)main.c -o $(BINDIR)main.o
 
-# Cleans only all files with the extension .d
-.PHONY: cleandepw
-cleandepw:
-	$(DEL) $(DEP)
+pfc: utility config 
+	@ echo "Compile pfc"
+	@ $(CC) -c $(PREFIX_PFC)pfc.c -o $(BINDIR)pfc.o
+	#@ $(CC) -c $(PREFIX_PFC)structure.c -o $(BINDIR)structure.o
+
+transducer: utility config
+	@ echo "Compile transducer"
+	#@ $(CC) -c $(PREFIX_TRANS)transducer.c -o $(BINDIR)transducer.o
+
+fman: config
+	@ echo "Compile failure manager"
+	#@ $(CC) -c $(PREFIX_FMAN)fman.c -o $(BINDIR)fman.o
+
+wes: config
+	@ echo "Compile wes"
+	#@ $(CC) -c $(PREFIX_WES)wes.c -o $(BINDIR)wes.o
+
+pfcds: precompile
+	@ echo "Compile pfc disconnect switch"
+	#@ $(CC) -c $(PREFIX_PFCDS)pfcds.c -o $(BINDIR)pfcds.o
+
+utility: precompile
+	@ echo "Compile utilities"
+	#@ $(CC) -c $(PREFIX_UTIL)string.c -o $(BINDIR)string.o
+	#@ $(CC) -c $(PREFIX_UTIL)angles.c -o $(BINDIR)angles.o
+	#@ $(CC) -c $(PREFIX_UTIL)connection.c -o $(BINDIR)connection.o
+
+config: precompile
+	@ echo "Compile constants"
+	@ $(CC) -c $(PREFIX_GLOBAL)config.c -o $(BINDIR)config.o
+
+precompile:
+	@ echo "Create binaries and logs directory"
+	@ mkdir $(BINDIR)
+	@ mkdir $(LOGDIR)
+	@ mkdir $(TMPDIR)
