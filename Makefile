@@ -1,6 +1,7 @@
 maketest:
-	gcc -Wall -c src/main.c
-	gcc -Wall -c src/pfc.c
-	gcc -Wall -c src/transducer.c
-	
-	gcc -o test main.o pfc.o transducer.o -lm
+	@ echo "Compila"
+	gcc -Wall -c src/main.c -o /tmp/main.o
+	gcc -Wall -c src/pfc.c -o /tmp/pfc.o
+	gcc -Wall -c src/transducer.c -o /tmp/trans.o
+	@ echo "Linka"
+	gcc -o test log/*.o -lm
