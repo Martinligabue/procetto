@@ -12,7 +12,7 @@ void wes(int *pidPFCs)
   char *result1[100];
   char *result2[100];
   char *result3[100];
-  if (fd open(log/speedPFC1.log != -1))
+  if (fd open(log/speedPFC1.log, O_RDONLY) != -1)
   {
     perrorr("speedPFC1");
   }
