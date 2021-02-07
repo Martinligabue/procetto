@@ -1,0 +1,1 @@
+char* actionOnPipe(char*, int);

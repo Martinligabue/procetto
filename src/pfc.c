@@ -11,7 +11,7 @@
 #include <fcntl.h>
 #include "pfc.h"
 #include "transducer.h"
-
+#include "pipe.h"
 
 struct gll pfc(char *path, struct gll oldGll, int flag)
 {
@@ -88,7 +88,7 @@ struct gll pfc(char *path, struct gll oldGll, int flag)
     {
         speed = 0;
     }
-
+    printf("time: %ld\n", newGll.time);
     comunication(flag, speed);
     return newGll;
 }
@@ -127,14 +127,11 @@ void comunication(int flag, double speed)
         write(fileD, strSpeed, 8);
         close(fileD);
         break;
-    /*case 2:
-        pipe(fPipe);
-        close(fPipe[1]);
-        write(fPipe[0], strSpeed, 8);
-        close(fPipe[0]);
+    case 2:
+        actionOnPipe(strSpeed, 0);
         break;
     case 3:
-*/
+
     default:
         break;
     }

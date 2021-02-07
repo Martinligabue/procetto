@@ -12,11 +12,11 @@
 #include <fcntl.h>
 #include "pfc.h"
 #include "transducer.h"
-#define CLOCK 1
+#define CLOCK 0.1
 
 int main(int argc, char *argv[])
 {
-    int pidPfc[3];
+    int pidPfc[4];
     struct gll oldGll;
     oldGll.lat = 0;
     oldGll.offset = 0;
@@ -53,17 +53,15 @@ int main(int argc, char *argv[])
         }
     }
 
-   /* processCounter++;
     pidPfc[3] = fork();
     if (pidPfc[3] == 0)
     {
         while (1)
         {
-            printf("processo: 4\n");
             transducer();
             sleep(CLOCK);
         }
-    }*/
+    }
 
     return 0;
 }

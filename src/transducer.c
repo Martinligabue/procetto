@@ -15,13 +15,13 @@
 
 void transducer(){
     int fd;
-    char buf[8];
+    char buf[9];
 
     if((fd = open("data/speed.txt", O_RDONLY)) == -1){
         perror("openTransSpeed");
         exit(1);
     }
-    read (fd, buf, 8);
+    read (fd, buf, 9);
     close(fd);
 
     if((fd = open("log/speedPFC1.log", O_WRONLY)) == -1){
@@ -30,4 +30,6 @@ void transducer(){
     }
     write(fd, buf, 8);
     close(fd);
+
+    
 }
