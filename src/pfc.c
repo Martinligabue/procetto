@@ -11,8 +11,6 @@
 #include <fcntl.h>
 #include "pfc.h"
 
-
-
 struct gll pfc(char *path, int offset, struct gll oldGll, int flag)
 {
     struct gll newGll;
@@ -65,11 +63,13 @@ struct gll pfc(char *path, int offset, struct gll oldGll, int flag)
         buf2[j] = buf[i];
     }
     newGll.valid = buf2;
-    if (oldGll.lat != 0){
+    if (oldGll.lat != 0)
+    {
         speed = calcolateSpeed(oldGll, newGll);
         speed = speed / (newGll.time - oldGll.time);
     }
-    else{
+    else
+    {
         speed = 0;
     }
 
@@ -77,37 +77,38 @@ struct gll pfc(char *path, int offset, struct gll oldGll, int flag)
     return newGll;
 }
 
-
-double degreesToRadians(double a){
-    return a * M_PI / 180;
+double degreesToRadians(double a)
+{
+    return a * 0.01745329; //aaaaaaaAAAAAA
 }
 
-
-double calcolateSpeed(struct gll oldGll, struct gll newGll){
+double calcolateSpeed(struct gll oldGll, struct gll newGll)
+{
     double degLat = degreesToRadians(oldGll.lat - newGll.lat);
     double degLon = degreesToRadians(oldGll.lon - newGll.lon);
 
     newGll.lat = degreesToRadians(newGll.lat);
     oldGll.lat = degreesToRadians(oldGll.lat);
 
-    double a = sin(degLat/2) * sin(degLat/2) + 
-                sin(degLon/2) * sin(degLon/2) * cos(newGll.lat) * cos(oldGll.lat);
-    double c = atan2(sqrt(a), sqrt(1-a));
-    c = 2*c;
+    double a = sin(degLat / 2) * sin(degLat / 2) + sin(degLon / 2) * sin(degLon / 2) * cos(newGll.lat) * cos(oldGll.lat);
+    double c = atan2(sqrt(a), sqrt(1 - a));
+    c = 2 * c;
     return 6371 * c;
 }
 
-void comunication(int flag, double speed){
-    char strSpeed[100]; 
+void comunication(int flag, double speed)
+{
+    char strSpeed[100];
     int fileD;
     sprintf(strSpeed, "%f\n", speed);
-    switch (flag){
-        case 1:
-            fileD = open("speed.txt", O_WRONLY);
-            write (fileD, strSpeed, 100);
-            close(fileD);
-            break;
-        default:
+    switch (flag)
+    {
+    case 1:
+        fileD = open("speed.txt", O_WRONLY);
+        write(fileD, strSpeed, 100);
+        close(fileD);
+        break;
+    default:
         break;
     }
 }
