@@ -23,8 +23,8 @@ char* actionOnPipe (char *str, int action){
     }
     if(action == 1){
         close(fD[0]);
-        read(fD[1], buf, 8);
+        read(fD[1], &buf, 8);
         close(fD[1]);
     }
-    return buf;
+    return *buf;
 }

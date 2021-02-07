@@ -115,7 +115,7 @@ double calcolateSpeed(struct gll oldGll, struct gll newGll)
 void comunication(int flag, double speed)
 {
     char strSpeed[10];
-    int fileD, fPipe[2];
+    int fileD;
     sprintf(strSpeed, "%f\n", speed);
     switch (flag)
     {
