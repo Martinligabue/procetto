@@ -16,8 +16,7 @@
 
 
 int main (int argc, char *argv[]){
-    int pidPfc[3];
-    int pidTrans;
+    int pidPfc[4];
     struct gll oldGll;
     oldGll.lat = 0;
     oldGll.offset = 0;
@@ -45,8 +44,8 @@ int main (int argc, char *argv[]){
         }
     }
 
-    pidTrans = fork();
-    if(pidTrans == 0){
+    pidPfc[3] = fork();
+    if(pidPfc[3] == 0){
         while(1){
             transducer();
             sleep(CLOCK);
