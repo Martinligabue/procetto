@@ -22,7 +22,7 @@ void pfcDs (char* error, int pid[], int i){
         exit(1);
     }
 
-    if (strcmp(error, "error")){
+    if (strcmp(error, "error") == 0){
         if (kill(pid[i], 0) == 0)
         {
             buf = ("The process that caused the error is running\n");
@@ -31,18 +31,19 @@ void pfcDs (char* error, int pid[], int i){
         }
         else
         {
-            buf = ("The process that caused the error and is not running\n");
+            buf = ("The process that caused the error is not running\n");
             write(fd, buf, strlen(buf));
             close(fd);
         }
     }
 
-    if (strcmp(error, "emergency")){
-        for(i=0; i<3; i++)
+    if (strcmp(error, "emergency") == 0){
+        for(i=0; i<5; i++)
         {
             kill(pid[i], SIGINT);
         }
-        write(fd, "All processes terminated\n", 25);
+        buf = ("All processes terminated\n");
+        write(fd, buf, strlen(buf));
         close(fd);
         exit(1);
     }

@@ -39,9 +39,9 @@ void wes(int pid[])
   read(fd, &result3, 8);
   close(fd);
 
-  if (strcmp(result1, result2))
+  if (strcmp(result1, result2) == 0)
   {
-    if (strcmp(result1, result3))
+    if (strcmp(result1, result3) == 0)
     {
       printf("Wes: OK\n");
     }
@@ -51,12 +51,12 @@ void wes(int pid[])
       pfcDs("error", pid, 2);
     }
   }
-  else if (strcmp(result1, result3))
+  else if (strcmp(result1, result3) == 0)
   {
     //erroe su 2
           pfcDs("error", pid, 1);
   }
-  else if (strcmp(result2, result3))
+  else if (strcmp(result2, result3) == 0)
   {
     //errore su 1
           pfcDs("error", pid, 0);
