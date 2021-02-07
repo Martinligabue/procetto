@@ -7,6 +7,8 @@
 #include <math.h>
 
 void wes(int *pidPFCs) {
+  int fd;
+  if (fd open(log/speedPFC1.log)
 
 
 }
