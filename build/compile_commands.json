@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/aleph/github/procetto/procetto/build",
-  "command": "/usr/bin/c++    -O3 -DNDEBUG   -o CMakeFiles/procetto.dir/procetto.cpp.o -c /home/aleph/github/procetto/procetto/procetto.cpp",
-  "file": "/home/aleph/github/procetto/procetto/procetto.cpp"
-}
-]
