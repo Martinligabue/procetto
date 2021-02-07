@@ -16,9 +16,10 @@
 struct gll pfc(char *path, struct gll oldGll, int flag)
 {
     struct gll newGll;
-    int gDesc, offset = 0;
+    int gDesc;
     char buf[45], buf2[10];
     double speed;
+    newGll.offset = oldGll.offset + 1;
     gDesc = open(path, O_RDONLY);
     if (gDesc == -1)
     {
@@ -26,18 +27,18 @@ struct gll pfc(char *path, struct gll oldGll, int flag)
         exit(1);
     }
     do{
-        lseek(gDesc, offset, SEEK_CUR);
+        lseek(gDesc, newGll.offset, SEEK_SET);
         read(gDesc, &buf, 45);
-        for(int i=0; i<6; i++){
+        for(int i=0; i<5; i++){
             buf2[i] = buf[i];
         }
-        offset++;
+        newGll.offset++;
     }
-    while(strcmp(buf2, "$GPGLL"));
+    while(strcmp(buf2, "GPGLL"));
     
     close(gDesc);
 
-    for (int i = 7, j = 0; i < 16; i++, j++)
+    for (int i = 6, j = 0; i < 15; i++, j++)
     {
         buf2[j] = buf[i];
     }
@@ -45,7 +46,7 @@ struct gll pfc(char *path, struct gll oldGll, int flag)
     newGll.latDirection = buf[17];
 
 
-    for (int i = 19, j = 0; i < 29; i++, j++)
+    for (int i = 18, j = 0; i < 28; i++, j++)
     {
         buf2[j] = buf[i];
     }
@@ -57,7 +58,7 @@ struct gll pfc(char *path, struct gll oldGll, int flag)
         buf2[i] = '\0';
     }
 
-    for (int i = 32, j = 0; i < 38; i++, j++)
+    for (int i = 31, j = 0; i < 37; i++, j++)
     {
         buf2[j] = buf[i];
     }
@@ -70,7 +71,7 @@ struct gll pfc(char *path, struct gll oldGll, int flag)
         buf2[i] = '\0';
     }
 
-    for (int i = 39, j = 0; i < 43; i++, j++)
+    for (int i = 38, j = 0; i < 42; i++, j++)
     {
         buf2[j] = buf[i];
     }

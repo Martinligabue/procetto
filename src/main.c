@@ -16,7 +16,7 @@ int main (int argc, char *argv[]){
     int pidPfc[3];
     struct gll oldGll;
     oldGll.lat = 0;
-
+    oldGll.offset = 0;
     pidPfc[0] = fork();
     if (pidPfc[0] == 0){
         while(1){

@@ -5,6 +5,7 @@ struct gll {
     char lonDirection;
     long time;
     char *valid; 
+    int offset;
 }GLL;
 
 struct gll pfc(char*, struct gll, int);
