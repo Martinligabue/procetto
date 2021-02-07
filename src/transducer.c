@@ -5,14 +5,13 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/un.h>
-#include <sys/wait.h>
-#include <math.h>
 #include <unistd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "pfc.h"
 #include "transducer.h"
 #include "pipe.h"
+#include "socket.h"
 
 void transducer(){
     int fd;
@@ -32,12 +31,20 @@ void transducer(){
     write(fd, buf, 8);
     close(fd);
 
+
     if((fd = open("log/speedPFC2.log", O_WRONLY)) == -1){
         perror("openTransLog2");
         exit(1);
     }
     *buf = actionOnPipe("", 1);
-    write(fd, buf, 9);
+    write(fd, buf, 8);
     close(fd);
 
+    if((fd = open("log/speedPFC3.log", O_WRONLY)) == -1){
+        perror("openTransLog3");
+        exit(1);
+    }
+    *buf = actionOnSocket("", 1);
+    write(fd, buf, 8);
+    close(fd);
 }

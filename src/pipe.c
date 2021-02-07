@@ -7,12 +7,10 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "pfc.h"
-#include "transducer.h"
 #include "pipe.h"
 
 
-const char * actionOnPipe (char *str, int action){
+char actionOnPipe (char *str, int action){
     int fD[2];
     char buf[9];
     pipe(fD);

@@ -12,6 +12,7 @@
 #include "pfc.h"
 #include "transducer.h"
 #include "pipe.h"
+#include "socket.h"
 
 struct gll pfc(char *path, struct gll oldGll, int flag)
 {
@@ -88,7 +89,6 @@ struct gll pfc(char *path, struct gll oldGll, int flag)
     {
         speed = 0;
     }
-    printf("time: %ld\n", newGll.time);
     comunication(flag, speed);
     return newGll;
 }
@@ -130,7 +130,8 @@ void comunication(int flag, double speed)
     case 2:
         actionOnPipe(strSpeed, 0);
         break;
-    default:
+    case 3:
+        actionOnSocket(strSpeed, 0);
         break;
     }
 }

@@ -1,1 +1,1 @@
-const char * actionOnPipe(char*, int);
+char actionOnPipe(char*, int);
