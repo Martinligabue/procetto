@@ -11,10 +11,12 @@
 #include <fcntl.h>
 #include "pfc.h"
 
-struct gll pfc(char *path, int offset, struct gll oldGll, int flag)
+
+
+struct gll pfc(char *path, struct gll oldGll, int flag)
 {
     struct gll newGll;
-    int gDesc;
+    int gDesc, offset = 0;
     char buf[45], buf2[10];
     double speed;
     gDesc = open(path, O_RDONLY);
@@ -23,9 +25,16 @@ struct gll pfc(char *path, int offset, struct gll oldGll, int flag)
         perror("open");
         exit(1);
     }
-
-    lseek(gDesc, offset, SEEK_SET);
-    read(gDesc, &buf, 45);
+    do{
+        lseek(gDesc, offset, SEEK_CUR);
+        read(gDesc, &buf, 45);
+        for(int i=0; i<6; i++){
+            buf2[i] = buf[i];
+        }
+        offset++;
+    }
+    while(strcmp(buf2, "$GPGLL"));
+    
     close(gDesc);
 
     for (int i = 7, j = 0; i < 16; i++, j++)
@@ -34,6 +43,7 @@ struct gll pfc(char *path, int offset, struct gll oldGll, int flag)
     }
     newGll.lat = atof(buf2);
     newGll.latDirection = buf[17];
+
 
     for (int i = 19, j = 0; i < 29; i++, j++)
     {
@@ -53,6 +63,8 @@ struct gll pfc(char *path, int offset, struct gll oldGll, int flag)
     }
     newGll.time = atoi(buf2);
 
+    printf("Time: %ld\n", newGll.time);
+
     for (int i = 0; i < 10; i++)
     {
         buf2[i] = '\0';
@@ -66,15 +78,20 @@ struct gll pfc(char *path, int offset, struct gll oldGll, int flag)
     if (oldGll.lat != 0)
     {
         speed = calcolateSpeed(oldGll, newGll);
-        //speed = speed / (newGll.time - oldGll.time);
+        if(newGll.time%10 == 0){
+            speed = speed / ( (newGll.time%10 + 10) - oldGll.time%10);
+        }
+        else{
+            speed = speed / (newGll.time%10 - oldGll.time%10);
+        }
     }
     else
     {
         speed = 0;
     }
 
-    //printf("Figlio : %d speed: %f\n", flag, speed);
-    comunication(flag, speed);
+    //printf("Figlio : %d speed: %f lat: %f %f\n", flag, speed, newGll.lat, newGll.lon);
+    //comunication(flag, speed);
     return newGll;
 }
 
@@ -110,7 +127,13 @@ void comunication(int flag, double speed)
         close(fileD);
         break;
     case 2:
-        
+        pipe(fPipe);
+        close(fPipe[1]);
+        write(fPipe[0], strSpeed, 8);
+        close(fPipe[0]);
+        break;
+    case 3:
+
     default:
         break;
     }

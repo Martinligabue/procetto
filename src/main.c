@@ -11,36 +11,33 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "pfc.h"
-
+#define CLOCK 0.2
 int main (int argc, char *argv[]){
-    int i = 57, pidPfc[3];
+    int pidPfc[3];
     struct gll oldGll;
     oldGll.lat = 0;
 
     pidPfc[0] = fork();
     if (pidPfc[0] == 0){
         while(1){
-            oldGll = pfc(argv[1], i, oldGll, 1);
-            i += 414;
-            sleep(1);
+            oldGll = pfc(argv[1], oldGll, 1);
+            sleep(CLOCK);
         }
     }
 
     pidPfc[1] = fork();
     if(pidPfc[1] == 0){
         while(1){
-            oldGll = pfc(argv[1], i, oldGll, 2);
-            i += 414;
-            sleep(1);
+            oldGll = pfc(argv[1], oldGll, 2);
+            sleep(CLOCK);
         }
     }
 
     pidPfc[2] = fork();
     if(pidPfc[2] == 0){
         while(1){
-            oldGll = pfc(argv[1], i, oldGll, 3);
-            i += 414;
-            sleep(1);
+            oldGll = pfc(argv[1], oldGll, 3);
+            sleep(CLOCK);
         }
     }
     

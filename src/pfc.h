@@ -7,7 +7,7 @@ struct gll {
     char *valid; 
 }GLL;
 
-struct gll pfc(char*, int, struct gll, int);
+struct gll pfc(char*, struct gll, int);
 
 void comunication (int, double);
 
