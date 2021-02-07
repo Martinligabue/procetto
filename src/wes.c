@@ -6,8 +6,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
+#include "pfcds.h"
 
-void wes(void)
+void wes(int pid[])
 {
   int fd;
   char result1[9];
@@ -47,23 +48,23 @@ void wes(void)
     else
     {
       //errore su 3
-      pfcDs("error", pid3);
+      pfcDs("error", pid, 2);
     }
   }
   else if (strcmp(result1, result3))
   {
     //erroe su 2
-          pfcDs("error", pid2);
+          pfcDs("error", pid, 1);
   }
   else if (strcmp(result2, result3))
   {
     //errore su 1
-          pfcDs("error", pid1);
+          pfcDs("error", pid, 0);
 
   }
   else
   {
     //emergency
-          pfcDs("emergency", 0);
+          pfcDs("emergency", pid, 0);
   }
 }
