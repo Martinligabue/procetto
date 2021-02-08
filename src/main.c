@@ -19,7 +19,7 @@
 
 int main(int argc, char *argv[])
 {
-    int pidPfc[5], pidDs[5];
+    int pidPfc[5];
     struct gll oldGll;
     oldGll.lat = 0;
     oldGll.offset = 0;
@@ -27,7 +27,6 @@ int main(int argc, char *argv[])
     pidPfc[0] = fork();
     if (pidPfc[0] == 0)
     {   
-        //pidDs[0] = getpid();
         while (1)
         {   
             oldGll = pfc(argv[1], oldGll, 1);
@@ -39,7 +38,6 @@ int main(int argc, char *argv[])
     pidPfc[1] = fork();
     if (pidPfc[1] == 0)
     {
-        //pidDs[1] = getpid();
         while (1)
         {
             oldGll = pfc(argv[1], oldGll, 2);
@@ -51,7 +49,6 @@ int main(int argc, char *argv[])
     pidPfc[2] = fork();
     if (pidPfc[2] == 0)
     {
-        //pidDs[2] = getpid();
         while (1)
         {
             oldGll = pfc(argv[1], oldGll, 3);
@@ -62,21 +59,19 @@ int main(int argc, char *argv[])
     pidPfc[3] = fork();
     if (pidPfc[3] == 0)
     {
-        //pidDs[3] = getpid();
         while (1)
         {
             transducer();
             sleep(CLOCK);
         }
     }
-
+    
     pidPfc[4] = fork();
     if (pidPfc[4] == 0)
     {
-        //pidDs[4] = getpid();
         while (1)
         {
-            wes(pidDs);
+            wes();
             sleep(CLOCK);
         }
     }

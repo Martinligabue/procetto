@@ -1,1 +1,1 @@
-void wes(int[]);
+void wes();
